@@ -4,11 +4,10 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.springxreact.Repositories.EmployeeRepository;
+import com.example.springxreact.Repositories.VehicleRepository;
 import com.example.springxreact.Models.Employee;
 
 
@@ -20,6 +19,9 @@ public class EmployeeController {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
+
+    @Autowired
+	VehicleRepository vehicleRepository;
 	
     @GetMapping(value = "/employees")
     public List<Employee> getAllEmployees(){
@@ -61,7 +63,5 @@ public class EmployeeController {
         employee.setStatus("0");
         return employeeRepository.save(employee);
     }
-
-
 
 }

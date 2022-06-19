@@ -1,6 +1,8 @@
 package com.example.springxreact.Controllers;
 
+import com.example.springxreact.Models.Employee;
 import com.example.springxreact.Models.Vehicle;
+import com.example.springxreact.Repositories.EmployeeRepository;
 import com.example.springxreact.Services.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -17,6 +19,9 @@ public class VehicleController {
 
     @Autowired
     VehicleService vehicleService;
+
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @GetMapping("/vehicles")
     public ResponseEntity<List<Vehicle>> getAllVehicles() {
@@ -48,5 +53,15 @@ public class VehicleController {
     public ResponseEntity<Vehicle> updateVehicle(@RequestBody Vehicle vehicle){
         vehicle = vehicleService.updateVehicle(vehicle);
         return new ResponseEntity<Vehicle>(vehicle, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @PutMapping("/{employeeId}/hasVehicle/{vehicleId}")
+    public Vehicle employeeHasVehicle(
+        @PathVariable Long employeeId,@PathVariable Long vehicleId
+    ){
+        Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+        Employee employee = employeeRepository.findById(employeeId).get();
+        vehicle.setEmployee(employee);
+        return vehicleService.saveVehicle(vehicle);
     }
 }

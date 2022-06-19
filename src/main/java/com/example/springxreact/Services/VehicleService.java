@@ -19,7 +19,7 @@ public class VehicleService {
     VehicleRepository vehicleRepository;
 
     public List<Vehicle> getAllListVehicle(){
-        List<Vehicle> vehicleList = vehicleRepository.findAll();
+        List<Vehicle> vehicleList = vehicleRepository.findAllActiveVehicles();
 
         if(vehicleList.size() > 0) {
             return vehicleList;

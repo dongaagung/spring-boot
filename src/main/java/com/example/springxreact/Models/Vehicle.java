@@ -6,10 +6,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tbl_vehicle")
+@Table(name = "tbl_vehicles")
 @Entity
 public class Vehicle {
 
@@ -19,4 +20,9 @@ public class Vehicle {
     private String type;
     private String plateNumber;
     private String status;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "employee_id", referencedColumnName = "id")
+    private Employee employee;
+    
 }
